@@ -32,10 +32,10 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
     try {
       setIsLiking(true);
       setHasLiked((prev) => !prev);
-      setOptmisticLikes((prev) => prev + (hasLiked ? -1 : 1));
+      setOptimisticLikes((prev) => prev + (hasLiked ? -1 : 1));
       await toggleLike(post.id);
     } catch (error) {
-      setOptmisticLikes(post._count.likes);
+      setOptimisticLikes(post._count.likes);
       setHasLiked(post.likes.some((like) => like.userId === dbUserId));
     } finally {
       setIsLiking(false);
@@ -100,7 +100,7 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
                     <span>{formatDistanceToNow(new Date(post.createdAt))} ago</span>
                   </div>
                 </div>
-                {/* Check if current user is the post author */} 
+                {/* Check if current user is the post author */}
                 {dbUserId === post.author.id && (
                   <DeleteAlertDialog isDeleting={isDeleting} onDelete={handleDeletePost} />
                 )}
@@ -122,9 +122,8 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
               <Button
                 variant="ghost"
                 size="sm"
-                className={`text-muted-foreground gap-2 ${
-                  hasLiked ? "text-red-500 hover:text-red-600" : "hover:text-red-500"
-                }`}
+                className={`text-muted-foreground gap-2 ${hasLiked ? "text-red-500 hover:text-red-600" : "hover:text-red-500"
+                  }`}
                 onClick={handleLike}
               >
                 {hasLiked ? (
@@ -230,7 +229,7 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
       </CardContent>
     </Card>
 
-    
+
   )
 }
 
